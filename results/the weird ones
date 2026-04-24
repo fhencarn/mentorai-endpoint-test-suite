@@ -1,0 +1,33 @@
+Problem: This endpoint says POST but when doing the test I had to change to PUT
+
+Endpoint: /api/ai-mentor/orgs/{org}/users/{user_id}/custom-instruction/​
+
+Context:
+
+""""response = requests.post(url, headers=headers, json=payload)
+    status_code = response.status_code""""
+
+    to 
+
+""""response = requests.put(url, headers=headers, json=payload)
+    status_code = response.status_code""""
+
+
+***** THIS ONE NOT LOGGED YET*****Problem: This endpoint says POST but when doing the test I had to change to PUT 
+Endpoint: /api/ai-mentor/orgs/{org}/users/{user_id}/mentor-from-template/​#Copy link to "/api/ai-mentor/orgs/{org}/users/{user_id}/mentor-from-template/"
+
+ """"" response = requests.put(POST_URL, headers=HEADERS, json=payload)""""""""" 
+
+
+
+UNABLE TO TEST ENDPOINTS WITHOUT TEMPLATE_NAME
+
+
+
+
+
+
+
+
+
+

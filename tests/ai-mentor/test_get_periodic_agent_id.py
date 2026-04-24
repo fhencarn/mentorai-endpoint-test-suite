@@ -47,7 +47,7 @@ def build_notes(status_code: int) -> str:
     return "Unexpected response; review raw output."
 
 
-def endpoint_test_get_periodic_agent():
+def test_get_periodic_agent():
     base_url = os.getenv("BASE_URL", "https://base.manager.iblai.app")
     org = os.getenv("ORG_ID", "syracuse")
     user_id = os.getenv("USER_ID")
@@ -113,4 +113,4 @@ def endpoint_test_get_periodic_agent():
 
 
 if __name__ == "__main__":
-    endpoint_test_get_periodic_agent()
+    test_get_periodic_agent()
