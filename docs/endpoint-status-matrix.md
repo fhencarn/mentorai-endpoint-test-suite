@@ -90,3 +90,17 @@
 | ai-mentor | /api/ai-mentor/orgs/{org}/users/{user_id}/pin-message/ | DELETE | ibl.ai docs | 401 | unauthorized | Authentication failed | Check API_KEY or Authorization header format |
 | ai-mentor | /api/ai-mentor/orgs/{org}/users/{user_id}/playwright-scripts/{id}/ | DELETE | ibl.ai docs | 401 | unauthorized | Authentication failed | Check API_KEY or Authorization header format |
 | ai-mentor | /api/ai-mentor/orgs/{org}/users/{user_id}/sessions/{session_id}/ | DELETE | ibl.ai docs | 401 | unauthorized | Authentication failed | Check API_KEY or Authorization header format |
+| ai-account | /api/ai-account/orgs/syracuse/credential/ | GET | ibl.ai docs | 200 | working | 4 credential(s) returned | Auth successful; returned 4 credential(s). |
+| ai-account | /api/ai-account/orgs/syracuse/integration-credential/ | GET | ibl.ai docs | 200 | working | 2 integration credential(s) returned | Auth successful; returned integration credential list. |
+| ai-account | /api/ai-account/orgs/{org}/platform-metadata/ | GET | ibl.ai docs | 404 | not found | Platform metadata not found | Endpoint reachable, but no platform metadata configured for this org. |
+| ai-account | /api/ai-account/orgs/{org}/tokens/ | GET | ibl.ai docs | 404 | not found | Token usage not found | Endpoint reached, but token usage data was not found for this org or filters. |
+| ai-account | /api/ai-account/orgs/{org}/users/{user_id}/default-llm-key-usage | GET | ibl.ai docs | 200 | working | use_main_credentials = False | Auth successful; returned default LLM key usage setting. |
+| ai-account | /api/ai-account/orgs/{org}/users/{user_id}/free-trial | GET | ibl.ai docs | 200 | working | is_in_free_trial = False | Auth successful; returned free trial status. |
+| ai-account | /api/ai-account/orgs/{org}/credential/ | POST | ibl.ai docs | 201 | working | LLM credential created | Auth successful; created tenant LLM credential. |
+| ai-account | /api/ai-account/orgs/{org}/integration-credential/ | POST | ibl.ai docs | 403 | forbidden | Permission denied | Accessible to tenant admins only; token may lack admin permissions. |
+| ai-account | /api/ai-account/orgs/{org}/platform-metadata/ | POST | ibl.ai docs | 404 | not found | Platform metadata not found | Endpoint reached, but platform metadata or tenant org was not found. |
+| ai-account | /api/ai-account/orgs/{org}/use-default-llm-key/ | POST | ibl.ai docs | 403 | forbidden | Permission denied | Accessible to tenant admins only; token may lack admin permissions. |
+| ai-account | /api/ai-account/orgs/{org}/use-free-trial/ | POST | ibl.ai docs | 403 | forbidden | Permission denied | Accessible to tenant admins only; token may lack admin permissions. |
+| ai-account | /api/ai-account/orgs/{org}/credential/ | PATCH | ibl.ai docs | 200 | working | LLM credential updated | Auth successful; updated tenant LLM credential. |
+| ai-account | /api/ai-account/orgs/{org}/integration-credential/ | PATCH | ibl.ai docs | 403 | forbidden | Permission denied | Accessible to tenant admins only. |
+| ai-account | /api/ai-account/orgs/{org}/platform-metadata/ | PUT | ibl.ai docs | 404 | not found | Platform metadata not found | Endpoint reached, but platform metadata may not exist yet for this org. |
