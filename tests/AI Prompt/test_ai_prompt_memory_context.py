@@ -14,8 +14,8 @@ BASE_URL = os.getenv("BASE_URL")
 ORG = os.getenv("ORG")
 USER_ID = os.getenv("USER_ID")
 
-def test_ai_prompt_all_chats_memory():
-    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/all-chats-memory/"
+def test_ai_prompt_memory_context():
+    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/memory-context/"
     url = f"{BASE_URL}{endpoint}"
 
     token = get_access_token()
@@ -35,8 +35,8 @@ def test_ai_prompt_all_chats_memory():
 
     if status == 200:
         label = "working"
-        summary = "Chat memory retrieved successfully"
-        notes = "Endpoint returned user chat memory data"
+        summary = "User memory context retrieved successfully"
+        notes = "Endpoint returned memory context settings"
     elif status == 400:
         label = "working-needs-docs"
         summary = "Request failed due to missing or invalid parameters"
@@ -50,9 +50,9 @@ def test_ai_prompt_all_chats_memory():
         summary = "Request authenticated but access denied"
         notes = "Likely restricted by read-only role or tenant permissions"
     elif status == 404:
-        label = "working"
-        summary = "No chat memory found for this user"
-        notes = "Docs indicate NotFound may occur if no chat memory exists"
+        label = "working-needs-docs"
+        summary = "Memory context not found for this user"
+        notes = "Docs do not clearly specify behavior when no context exists"
     elif status >= 500:
         label = "server-error"
         summary = "Server returned an internal error"
@@ -77,4 +77,4 @@ def test_ai_prompt_all_chats_memory():
     )
 
 if __name__ == "__main__":
-    test_ai_prompt_all_chats_memory()
+    test_ai_prompt_memory_context()

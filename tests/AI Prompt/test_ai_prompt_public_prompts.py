@@ -14,8 +14,8 @@ BASE_URL = os.getenv("BASE_URL")
 ORG = os.getenv("ORG")
 USER_ID = os.getenv("USER_ID")
 
-def test_ai_prompt_all_chats_memory():
-    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/all-chats-memory/"
+def test_ai_prompt_public_prompts():
+    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/prompts/public/"
     url = f"{BASE_URL}{endpoint}"
 
     token = get_access_token()
@@ -35,24 +35,24 @@ def test_ai_prompt_all_chats_memory():
 
     if status == 200:
         label = "working"
-        summary = "Chat memory retrieved successfully"
-        notes = "Endpoint returned user chat memory data"
+        summary = "Public prompts retrieved successfully"
+        notes = "Endpoint is accessible and returned public prompts"
+    elif status == 403:
+        label = "working-needs-docs"
+        summary = "Access denied despite docs saying public access"
+        notes = "Docs claim 'accessible to anyone' but API restricts access"
     elif status == 400:
         label = "working-needs-docs"
         summary = "Request failed due to missing or invalid parameters"
-        notes = "Check docs for required path or query parameters"
+        notes = "Check query parameters if required"
     elif status == 401:
         label = "unknown"
         summary = "Authentication failed"
         notes = "Token may be missing or invalid"
-    elif status == 403:
-        label = "permission-restricted"
-        summary = "Request authenticated but access denied"
-        notes = "Likely restricted by read-only role or tenant permissions"
     elif status == 404:
         label = "working"
-        summary = "No chat memory found for this user"
-        notes = "Docs indicate NotFound may occur if no chat memory exists"
+        summary = "No public prompts found"
+        notes = "Endpoint works but returned empty or no data"
     elif status >= 500:
         label = "server-error"
         summary = "Server returned an internal error"
@@ -77,4 +77,4 @@ def test_ai_prompt_all_chats_memory():
     )
 
 if __name__ == "__main__":
-    test_ai_prompt_all_chats_memory()
+    test_ai_prompt_public_prompts()

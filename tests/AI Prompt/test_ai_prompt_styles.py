@@ -14,8 +14,8 @@ BASE_URL = os.getenv("BASE_URL")
 ORG = os.getenv("ORG")
 USER_ID = os.getenv("USER_ID")
 
-def test_ai_prompt_all_chats_memory():
-    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/all-chats-memory/"
+def test_ai_prompt_styles():
+    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/styles/"
     url = f"{BASE_URL}{endpoint}"
 
     token = get_access_token()
@@ -35,32 +35,32 @@ def test_ai_prompt_all_chats_memory():
 
     if status == 200:
         label = "working"
-        summary = "Chat memory retrieved successfully"
-        notes = "Endpoint returned user chat memory data"
+        summary = "Prompt styles retrieved successfully"
+        notes = "Endpoint returned list of available prompt styles"
     elif status == 400:
         label = "working-needs-docs"
         summary = "Request failed due to missing or invalid parameters"
-        notes = "Check docs for required path or query parameters"
+        notes = "Check required parameters"
     elif status == 401:
         label = "unknown"
         summary = "Authentication failed"
-        notes = "Token may be missing or invalid"
+        notes = "Token issue"
     elif status == 403:
         label = "permission-restricted"
-        summary = "Request authenticated but access denied"
-        notes = "Likely restricted by read-only role or tenant permissions"
+        summary = "Access denied"
+        notes = "Requires tenant admin/student permissions"
     elif status == 404:
-        label = "working"
-        summary = "No chat memory found for this user"
-        notes = "Docs indicate NotFound may occur if no chat memory exists"
+        label = "working-needs-docs"
+        summary = "No styles found"
+        notes = "Docs unclear if empty list or 404 is expected"
     elif status >= 500:
         label = "server-error"
-        summary = "Server returned an internal error"
-        notes = "Backend issue likely"
+        summary = "Server error"
+        notes = "Backend issue"
     else:
         label = "unknown"
         summary = "Unexpected response"
-        notes = "Needs manual review"
+        notes = "Needs review"
 
     print("Status:", status)
     print("Response:", data)
@@ -77,4 +77,4 @@ def test_ai_prompt_all_chats_memory():
     )
 
 if __name__ == "__main__":
-    test_ai_prompt_all_chats_memory()
+    test_ai_prompt_styles()

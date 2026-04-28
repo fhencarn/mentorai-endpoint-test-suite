@@ -14,8 +14,8 @@ BASE_URL = os.getenv("BASE_URL")
 ORG = os.getenv("ORG")
 USER_ID = os.getenv("USER_ID")
 
-def test_ai_prompt_all_chats_memory():
-    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/all-chats-memory/"
+def test_ai_prompt_prompt():
+    endpoint = f"/api/ai-prompt/orgs/{ORG}/users/{USER_ID}/prompt/"
     url = f"{BASE_URL}{endpoint}"
 
     token = get_access_token()
@@ -24,6 +24,7 @@ def test_ai_prompt_all_chats_memory():
         "Content-Type": "application/json"
     }
 
+    # No filters for now
     response = requests.get(url, headers=headers)
 
     try:
@@ -35,12 +36,12 @@ def test_ai_prompt_all_chats_memory():
 
     if status == 200:
         label = "working"
-        summary = "Chat memory retrieved successfully"
-        notes = "Endpoint returned user chat memory data"
+        summary = "Prompt list retrieved successfully"
+        notes = "Returned prompts for the user (no filters applied)"
     elif status == 400:
         label = "working-needs-docs"
         summary = "Request failed due to missing or invalid parameters"
-        notes = "Check docs for required path or query parameters"
+        notes = "Check required query parameters or filters"
     elif status == 401:
         label = "unknown"
         summary = "Authentication failed"
@@ -50,9 +51,9 @@ def test_ai_prompt_all_chats_memory():
         summary = "Request authenticated but access denied"
         notes = "Likely restricted by read-only role or tenant permissions"
     elif status == 404:
-        label = "working"
-        summary = "No chat memory found for this user"
-        notes = "Docs indicate NotFound may occur if no chat memory exists"
+        label = "working-needs-docs"
+        summary = "No prompts found"
+        notes = "User may not have prompts or docs unclear"
     elif status >= 500:
         label = "server-error"
         summary = "Server returned an internal error"
@@ -77,4 +78,4 @@ def test_ai_prompt_all_chats_memory():
     )
 
 if __name__ == "__main__":
-    test_ai_prompt_all_chats_memory()
+    test_ai_prompt_prompt()
